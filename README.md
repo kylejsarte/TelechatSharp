@@ -20,7 +20,7 @@ var containsLol = messages.Where(m => m.Text.Contains("lol", StringComparison.Or
 
 ## `Chat.cs`
 
-`Chat` exposes the following public properties which are modeled after the Telegram JSON schema, notably a collection of custom `Message` objects which contains object representations of all messages in the chat. The library provides some flexibility during deserialization, in that only the `messages` property—a JSON array—a must be present in the JSON for successful conversion. 
+`Chat` exposes the following public properties which are modeled after the Telegram JSON schema, notably a collection of custom `Message` objects which contains object representations of all messages in the chat. The library provides some flexibility during deserialization, in that only the `messages` property—a JSON array—must be present in the JSON for successful conversion. 
 
 ```csharp
 public string? Name { get; set; }
