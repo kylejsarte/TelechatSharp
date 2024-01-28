@@ -24,6 +24,8 @@ var emails = messages.GetAllTextsOfTextEntityType("email");
 
 ## Contents
 
+*Full API documentation coming soon.*
+
 - **[Chat.cs](#chatcs)**
 	- **[ChatExtensions.cs](#chatextensionscs)**
 - **[Message.cs](#messagecs)**
@@ -31,7 +33,7 @@ var emails = messages.GetAllTextsOfTextEntityType("email");
 - **[Text.cs and TextEntity.cs](#textcs---textentitycs)**
   	- **[Text.cs](#textcs)**
 
-*Full API documentation coming soon.*
+For readability, all JSON samples in this README will omit most properties and only include ones relevant to the toppic being discussed.
 
 ## `Chat.cs`
 
@@ -70,7 +72,7 @@ foreach (var message in messages)
 ```
 
 ### Message Types
-In the schema, Telegram messages are either  `Message` types or `Service` types. A `Message` is any basic text message. A `Service` is any action performed on the chat such as the pinning of a message or the invitation of a new member. For readability, some properties have been omitted from the JSON sample below:
+In the schema, Telegram messages are either  `Message` types or `Service` types. A `Message` is any basic text message. A `Service` is any action performed on the chat such as the pinning of a message or the invitation of a new member:
 
 ```json
 {
