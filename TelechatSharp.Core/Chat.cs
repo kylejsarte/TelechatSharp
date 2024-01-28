@@ -12,7 +12,8 @@ namespace TelechatSharp.Core
 
         public long? Id { get; set; }
 
-        public IEnumerable<Message>? Messages { get; set; }
+        [JsonRequired]
+        public IEnumerable<Message> Messages { get; set; } = default!;
 
         public Chat(string filePath)
         {

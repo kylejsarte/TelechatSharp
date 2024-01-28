@@ -10,6 +10,6 @@ namespace TelechatSharp.Core
 
         public long? Id { get; set; }
 
-        public IEnumerable<Message>? Messages { get; set; }
+        public IEnumerable<Message> Messages { get; set; }
     }
 }

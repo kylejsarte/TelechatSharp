@@ -37,11 +37,11 @@ namespace TelechatSharp.Core.Models
         private Text? _text = default;
 
         [JsonIgnore]
-        public string? Text
+        public string Text
         {
             get
             {
-                return _text?.FullText;
+                return _text?.FullText ?? string.Empty;
             }
 
             set
