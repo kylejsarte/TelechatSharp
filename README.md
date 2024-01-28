@@ -24,16 +24,14 @@ var emails = messages.GetAllTextsOfTextEntityType("email");
 
 ## Contents
 
-*Full API documentation coming soon.*
-
 - **[Chat.cs](#chatcs)**
 	- **[ChatExtensions.cs](#chatextensionscs)**
 - **[Message.cs](#messagecs)**
 	- **[MessagesExtensions.cs](#messagesextensionscs)**
 - **[Text.cs and TextEntity.cs](#textcs---textentitycs)**
   	- **[Text.cs](#textcs)**
-
-For readability, all JSON samples in this README will omit most properties and only include ones relevant to the toppic being discussed.
+ 
+_For readability, JSON samples in this README will omit most properties and only include those relevant to the topic being discussed._
 
 ## `Chat.cs`
 
@@ -51,7 +49,7 @@ public IEnumerable<Message> Messages { get; set; } = default!;
 ```
 
 ### `ChatExtensions.cs`
-To simplify the base `Chat` model to contain only properties present in the original JSON, additional data about the chat is made available via extension methods:
+To simplify the base `Chat` model so that it contains only properties present in the original JSON, additional data about the chat is made available via extension methods:
 
 ```csharp
 var dateCreated = chat.GetDateCreated();
@@ -109,7 +107,7 @@ For a full list of available extension methods on `Message` collections, refer t
 `Message.Text` and `Message.TextEntities` can be used to work with text data.
 
 ### `Text.cs`
-`Message.Text` returns a string of a message's text content. It is backed by a private field of custom type `Text` which handles building a raw string since the `text` property of a message object in the Telegram JSON schema is polymorphic—`text` can be either a plain text string or an array of plain text strings and *text entity* objects:
+`Message.Text` returns a string of a message's text content. It is backed by a private field of custom type `Text` which handles building a raw string since the `text` property of a message object in the Telegram JSON schema is polymorphic—`text` can be either a plain text string or an array of plain text strings and _text entity_ objects:
 ```json
 {
    "messages": [
