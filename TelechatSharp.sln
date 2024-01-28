@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelechatSharp", "TelechatSharp\TelechatSharp.csproj", "{FDDC5634-8B1D-4128-8271-E57B8752E767}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelechatSharp", "TelechatSharp.Core\TelechatSharp.Core.csproj", "{FDDC5634-8B1D-4128-8271-E57B8752E767}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
