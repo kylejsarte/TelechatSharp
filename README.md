@@ -28,7 +28,8 @@ var emails = messages.GetAllTextsOfTextEntityType("email");
 	- **[ChatExtensions.cs](#chatextensionscs)**
 - **[Message.cs](#messagecs)**
 	- **[MessagesExtensions.cs](#messagesextensionscs)**
-- **[Text.cs and TextEntity.cs](#textcsandtextentitycs)**
+- **[Text.cs and TextEntity.cs](#textcs---textentitycs)**
+  	- **[Text.cs](#textcs)**
 
 *Full API documentation coming soon.*
 
