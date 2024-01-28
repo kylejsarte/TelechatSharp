@@ -4,6 +4,15 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>TelechatSharp</PackageId>
+    <Title>TelechatSharp</Title>
+    <Version>2.0.2</Version>
+    <Authors>kylejsarte</Authors>
+    <Company />
+    <Product />
+    <Description>A .NET deserialization library to convert Telegram chat data exported as JSON into easy-to-use C# objects.</Description>
+    <PackageOutputPath />
+    <PackageTags>telegram;telegramdesktop;json;deserialize;deserialization;convert</PackageTags>
   </PropertyGroup>
 
 </Project>
