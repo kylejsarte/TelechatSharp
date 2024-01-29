@@ -2,6 +2,8 @@
 # TelechatSharp
 TelechatSharp handles the deserialization of JSON exported from Telegram Desktop, making it easy to work with your chat data in .NET applications through custom classes, properties, and extension methods. 
 
+TelechatSharp is [available on NuGet](https://www.nuget.org/packages/TelechatSharp/).
+
 ## Quick Start  
 Construct a new `Chat` object using the file path to your JSON:
 
