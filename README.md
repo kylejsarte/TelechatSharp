@@ -1,6 +1,7 @@
 # TelechatSharp
 
-![NuGet Version](https://img.shields.io/nuget/v/TelechatSharp?style=flat-square) ![NuGet Downloads](https://img.shields.io/nuget/dt/TelechatSharp?color=007ec6&style=flat-square)
+![NuGet Version](https://img.shields.io/nuget/v/TelechatSharp?style=flat-square) ![NuGet Downloads](https://img.shields.io/nuget/dt/TelechatSharp?color=007ec6&style=flat-square) ![GitHub License](https://img.shields.io/github/license/kylejsarte/TelechatSharp?style=flat-square)
+
 
 TelechatSharp handles the deserialization of JSON exported from Telegram Desktop, making it easy to work with your chat data in .NET applications through custom classes, properties, and extension methods. 
 
