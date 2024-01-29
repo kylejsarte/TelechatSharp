@@ -27,6 +27,7 @@ var emails = messages.GetAllTextsOfTextEntityType("email");
 - **[Chat.cs](#chatcs)**
 	- **[ChatExtensions.cs](#chatextensionscs)**
 - **[Message.cs](#messagecs)**
+ 	- **[Message Types](#messagetypes)**
 	- **[MessagesExtensions.cs](#messagesextensionscs)**
 - **[Text.cs and TextEntity.cs](#textcs---textentitycs)**
   	- **[Text.cs](#textcs)**
@@ -49,7 +50,7 @@ public IEnumerable<Message> Messages { get; set; } = default!;
 ```
 
 ### `ChatExtensions.cs`
-To simplify the base `Chat` model so that it contains only properties present in the original JSON, additional data about the chat is made available via extension methods:
+Additional data about the chat is made available via extension methods:
 
 ```csharp
 var dateCreated = chat.GetDateCreated();
@@ -57,17 +58,33 @@ var members = chat.GetMembers();
 var originalMembers = chat.GetOriginalMembers();
 ```
 
+Extension methods are used to simplify the base `Chat` model so that it contains only properties present in the original JSON.
+
 ## `Message.cs`
 Data about individual messages can be accessed through properties of the custom `Message` object:
 
-```csharp
-var messages = chat.Messages;
-
-foreach (var message in messages)
+```json
 {
-  Console.WriteLine($"On {message.Date}, {message.From} said '{message.Text}'.");
+   "messages": [
+      {
+         "type": "message",
+	 "date": "2024-01-27T19:40:00",
+	 "from": "Kyle Sarte",
+         "text": "TelechatSharp is public!"
+      }
+   ]
 }
 ```
+
+```csharp
+foreach (Message message in chat.Messages)
+{
+  Console.WriteLine($"On {message.Date}, {message.From} said '{message.Text}'");
+}
+```
+
+Given the sample JSON, the output would be:
+>`On 1/27/2024 7:40:00 PM, Kyle Sarte said 'TelechatSharp is public!'`
 
 ### Message Types
 In the schema, Telegram messages are either  `Message` types or `Service` types. A `Message` is any basic text message. A `Service` is any action performed on the chat such as the pinning of a message or the invitation of a new member:
@@ -109,7 +126,8 @@ For a full list of available extension methods on `Message` collections, refer t
 ### `Text.cs`
 Use `Message.Text` to get a plain text string of a message's text content.
 
-`Message.Text` is backed by a private field of custom type `Text` which handles string building. This is done because the `text` property of a message object in the Telegram JSON schema is polymorphic—`text` can be either a plain text string or an array of plain text strings and _text entity_ objects:
+The `text` property of a message in the JSON is polymorphic—`text` can either be a plain text string or an array of plain text strings and _text entity_ objects. `Message.Text` is backed by a private field of custom type `Text` which handles any necessary string building to abstract these text entities away and simplify text retrieval.
+
 ```json
 {
    "messages": [
@@ -139,3 +157,38 @@ Use `Message.Text` to get a plain text string of a message's text content.
 A call to `Message.Text` for the second message would build and return the following plain text string:
 
 >`This is a message with plain text and bold text. The bold text appears in the JSON as a text entity. Links such as https://www.kylejsarte.com will also appear as text entities.`
+
+### `TextEntity.cs`
+
+Use `Message.TextEntities` for finer-grain access to text data.
+
+`Message.TextEntities`, unlike `Message.Text`, preserves the structure of objects returned from the `text_entities` property of messages in the JSON. `Message.TextEntities` returns a collection of custom `TextEntity` types with `Type` and `Text` properties:
+
+```json
+{
+   "messages": [
+      {
+         "id": 1,
+         "type": "message",
+         "text_entities": [
+            {
+               "type": "link",
+               "text": "https://www.kylejsarte.com"
+            }
+         ]
+      }
+   ]
+}
+```
+
+```csharp
+// Get the message with ID "1".
+var message = messages.Where(m => m.Id == 1).FirstOrDefault();
+
+foreach (TextEntity textEntity in message.TextEntities)
+{
+    Console.WriteLine($"Type: {textEntity.Type}, Text: {textEntity.Text}");
+}
+```
+Given the sample JSON, the output would be:
+>`Type: link, Text: https://www.kylejsarte.com`
