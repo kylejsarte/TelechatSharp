@@ -107,7 +107,9 @@ For a full list of available extension methods on `Message` collections, refer t
 `Message.Text` and `Message.TextEntities` can be used to work with text data.
 
 ### `Text.cs`
-`Message.Text` returns a string of a message's text content. It is backed by a private field of custom type `Text` which handles building a raw string since the `text` property of a message object in the Telegram JSON schema is polymorphic—`text` can be either a plain text string or an array of plain text strings and _text entity_ objects:
+Use `Message.Text` to get a plain text string of a message's text content.
+
+`Message.Text` is backed by a private field of custom type `Text` which handles string building. This is done because the `text` property of a message object in the Telegram JSON schema is polymorphic—`text` can be either a plain text string or an array of plain text strings and _text entity_ objects:
 ```json
 {
    "messages": [
