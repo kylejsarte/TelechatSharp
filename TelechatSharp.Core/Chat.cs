@@ -6,13 +6,17 @@ namespace TelechatSharp.Core
 {
     public class Chat : IChat
     {
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
-
+        
+        [JsonPropertyName("type")]
         public string? Type { get; set; }
-
+        
+        [JsonPropertyName("id")]
         public long? Id { get; set; }
 
         [JsonRequired]
+        [JsonPropertyName("messages")]
         public IEnumerable<Message> Messages { get; set; } = default!;
 
         public Chat(string filePath)

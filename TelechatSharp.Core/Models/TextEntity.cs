@@ -11,7 +11,7 @@ namespace TelechatSharp.Core.Models
 
         internal TextEntity(JsonElement token)
         {
-            // TODO: the following code assumes the existence of the "type" and "text" properties. Maybe consider using TryGetProperty instead.
+            // TODO: Will break if schema is ever updated. Consider using TryGetProperty instead.
             Type = token.ValueKind == JsonValueKind.String ? "plain" : token.GetProperty("type").GetString();
             Text = token.ValueKind == JsonValueKind.String ? token.GetString() : token.GetProperty("text").GetString();
         }
