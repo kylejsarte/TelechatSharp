@@ -74,7 +74,9 @@ While the library is most useful through a `Chat` object's `Messages` property, 
 
 ```csharp
 var dateCreated = chat.GetDateCreated();
+
 var members = chat.GetMembers();
+
 var originalMembers = chat.GetOriginalMembers();
 ```
 
