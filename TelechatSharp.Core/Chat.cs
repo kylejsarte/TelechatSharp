@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
+using TelechatSharp.Core.Deserializers;
 using TelechatSharp.Core.Models;
-using TelechatSharp.Core.Processors;
 
 namespace TelechatSharp.Core
 {
@@ -8,20 +8,19 @@ namespace TelechatSharp.Core
     {
         [JsonPropertyName("name")]
         public string? Name { get; set; }
-        
-        [JsonPropertyName("type")]
+
+        [JsonPropertyName("type")]  
         public string? Type { get; set; }
-        
+
         [JsonPropertyName("id")]
         public long? Id { get; set; }
 
-        [JsonRequired]
         [JsonPropertyName("messages")]
-        public IEnumerable<Message> Messages { get; set; } = default!;
+        public IEnumerable<Message>? Messages { get; set; }
 
         public Chat(string filePath)
         {
-            var chat = ChatProcessor.DeserializeChatFromFile(filePath);
+            var chat = ChatDeserializer.DeserializeChatFromFile(filePath);
 
             Name = chat.Name;
             Type = chat.Type;

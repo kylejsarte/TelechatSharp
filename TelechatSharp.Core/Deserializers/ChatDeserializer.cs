@@ -1,9 +1,8 @@
 ﻿using System.Text.Json;
-using TelechatSharp.Core;
 
-namespace TelechatSharp.Core.Processors
+namespace TelechatSharp.Core.Deserializers
 {
-    internal static class ChatProcessor
+    internal static class ChatDeserializer
     {
         internal static Chat DeserializeChatFromFile(string filePath)
         {

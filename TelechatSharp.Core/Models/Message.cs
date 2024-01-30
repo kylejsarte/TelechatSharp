@@ -9,17 +9,29 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("action")]
         public string? Action { get; set; }
 
+        private string? _actor = default;
+
         [JsonPropertyName("actor")]
-        public string? Actor { get; set; }
+        public string? Actor
+        {
+            get => _actor ?? _from ?? null;
+            set => _actor = value;
+        }
+
+        private string? _actorId = default;
 
         [JsonPropertyName("actor_id")]
-        public string? ActorId { get; set; }
+        public string? ActorId
+        {
+            get => _actorId ?? _fromId ?? null;
+            set => _actorId = value;
+        }
 
         [JsonPropertyName("dateunixtime")]
-        public string? DateUnixTime { get; set; }
+        public string DateUnixTime { get; set; }
 
         [JsonPropertyName("date")]
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
 
         [JsonPropertyName("duration_seconds")]
         public int? DurationSeconds { get; set; }
@@ -27,11 +39,23 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("file")]
         public string? File { get; set; }
 
+        private string? _from = default;
+
         [JsonPropertyName("from")]
-        public string? From { get; set; }
+        public string? From
+        {
+            get => _from ?? _actor ?? null;
+            set => _from = value;
+        }
+
+        private string? _fromId = default;
 
         [JsonPropertyName("from_id")]
-        public string? FromId { get; set; }
+        public string? FromId
+        {
+            get => _fromId ?? _actorId ?? null;
+            set => _fromId = value;
+        }
 
         [JsonPropertyName("height")]
         public int? Height { get; set; }
@@ -47,10 +71,7 @@ namespace TelechatSharp.Core.Models
         [JsonIgnore]
         public string Text
         {
-            get
-            {
-                return _text?.FullText ?? string.Empty;
-            }
+            get => _text?.FullText ?? string.Empty;
 
             set
             {
