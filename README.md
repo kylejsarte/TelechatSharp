@@ -78,8 +78,6 @@ var members = chat.GetMembers();
 var originalMembers = chat.GetOriginalMembers();
 ```
 
-Extension methods are used to simplify the base `Chat` model so that it contains only properties present in the original JSON.
-
 ## `Message.cs`
 Data about individual messages can be accessed through properties of the custom `Message` object:
 
