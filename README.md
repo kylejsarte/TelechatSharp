@@ -4,28 +4,58 @@
 
 TelechatSharp handles the deserialization of JSON exported from Telegram Desktop, making it easy to work with your chat data in .NET applications through custom classes, properties, and extension methods. 
 
-## Quick Start  
+## Your Data, Fast  
 Construct a new `Chat` object using the file path to your JSON:
 
 ```csharp
 Chat chat = new Chat("telegram.json");
 ```
 
-Extract meaningful data from your chat history:
+Extract data from your chat history:
 
 ```csharp
-// Returns a collection of every message in the chat. 
 var messages = chat.Messages;
 
-// Returns a collection of all messages in the chat containing "lol", case-insensitive.
-var containsLol = messages.Where(m => m.Text.Contains("lol", StringComparison.OrdinalIgnoreCase));
+var messagesFromKyle = messages.FromMember("Kyle Sarte");
 
-// Returns a collection of all emails sent in the chat.
-var emails = messages.GetAllTextsOfTextEntityType("email");
+var messagesContainingLol = messages.ContainingText("lol");
+
+var emailsSentInChat = messages.GetAllTextsOfTextEntityType("email");
+
+var phoneNumbersSentInChat = messages.GetAllTextOfTextEntityType("phone");
 ```
 
-## Contents
+## Advanced Use Cases
 
+For advanced data analysis use cases, combine `TelechatSharp` with libraries such as `Microsoft.Data.Analysis`:
+
+```csharp
+using TelechatSharp.Core;
+using Microsoft.Data.Analysis;
+
+Chat chat = new Chat("telegram.json");
+
+// From TelechatSharp.Core, get chat member names and their messages.
+var from = chat.Messages.Select(m => m.From);
+var text = chat.Messages.Select(m => m.Text);
+
+// From Microsoft.Data.Analysis, create a new DataFrame using data from TelechatSharp.
+DataFrameColumn[] columns = {
+   new StringDataFrameColumn("From", from),
+   new StringDataFrameColumn("Text", text)
+};
+
+DataFrame dataFrame = new(columns);
+```
+
+The code would produce a DataFrame similar to the following structure:
+
+| From   | Text                           |
+|--------|--------------------------------|
+| Céline | You are gonna miss that plane. |
+| Jesse  | I know.                        |
+
+## Further Reading
 - **[Chat.cs](#chatcs)**
 	- **[ChatExtensions.cs](#chatextensionscs)**
 - **[Message.cs](#messagecs)**
@@ -38,21 +68,9 @@ _For readability, JSON samples in this README will omit most properties and only
 
 ## `Chat.cs`
 
-`Chat` provides some flexibility during deserialization, in that only a `messages` JSON array must be present in the JSON for a successful conversion. Once deserialized, `Chat.Messages` will return a collection of custom `Message` objects containing every message in the chat:
-
-```csharp
-public string? Name { get; set; }
-
-public string? Type { get; set; }
-
-public long? Id { get; set; }
-
-[JsonRequired]
-public IEnumerable<Message> Messages { get; set; } = default!;
-```
+While the library is most useful through a `Chat` object's `Messages` property, some derived data about a chat can be accessed via extension methods:
 
 ### `ChatExtensions.cs`
-Additional data about the chat is made available via extension methods:
 
 ```csharp
 var dateCreated = chat.GetDateCreated();
@@ -112,8 +130,8 @@ In the schema, Telegram messages are either  `Message` types or `Service` types.
 Messages can be filtered by type through extension methods:
 
 ```csharp
-var messageTypeMessages = messages.GetMessageTypeMessages();
-var serviceTypeMessages = messages.GetServiceTypeMessages();
+var messageTypeMessages = chat.Messages.GetMessageTypeMessages();
+var serviceTypeMessages = chat.Messages.GetServiceTypeMessages();
 ```
 
 ### `MessagesExtensions.cs`
@@ -176,6 +194,10 @@ Use `Message.TextEntities` for finer-grain access to text data.
             {
                "type": "link",
                "text": "https://www.kylejsarte.com"
+            },
+            {
+               "type": "mention",
+               "text": "Kyle Sarte"
             }
          ]
       }
@@ -185,7 +207,7 @@ Use `Message.TextEntities` for finer-grain access to text data.
 
 ```csharp
 // Get the message with ID "1".
-var message = messages.Where(m => m.Id == 1).FirstOrDefault();
+var message = chat.Messages.Where(m => m.Id == 1).FirstOrDefault();
 
 foreach (TextEntity textEntity in message.TextEntities)
 {
@@ -194,3 +216,5 @@ foreach (TextEntity textEntity in message.TextEntities)
 ```
 Given the sample JSON, the output would be:
 >`Type: link, Text: https://www.kylejsarte.com`
+>
+>`Type: mention, Text: Kyle Sarte`
