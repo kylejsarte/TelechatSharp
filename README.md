@@ -48,7 +48,7 @@ DataFrameColumn[] columns = {
 DataFrame dataFrame = new(columns);
 ```
 
-The code would produce a DataFrame similar to the following structure:
+Code produces a DataFrame similar to the following:
 
 | From   | Text                           |
 |--------|--------------------------------|
@@ -103,7 +103,7 @@ foreach (Message message in chat.Messages)
 }
 ```
 
-Given the sample JSON, the output would be:
+Output is:
 >`On 1/27/2024 7:40:00 PM, Kyle Sarte said 'TelechatSharp is public!'`
 
 ### Message Types
@@ -214,7 +214,7 @@ foreach (TextEntity textEntity in message.TextEntities)
     Console.WriteLine($"Type: {textEntity.Type}, Text: {textEntity.Text}");
 }
 ```
-Given the sample JSON, the output would be:
+Output is:
 >`Type: link, Text: https://www.kylejsarte.com`
 >
 >`Type: mention, Text: Kyle Sarte`
