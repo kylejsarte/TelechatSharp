@@ -11,7 +11,7 @@ Construct a new `Chat` object using the file path to your JSON:
 Chat chat = new Chat("telegram.json");
 ```
 
-Easily extract meaningful data from your chat history:
+Easily extract data from your chat history:
 
 ```csharp
 var messages = chat.Messages;
