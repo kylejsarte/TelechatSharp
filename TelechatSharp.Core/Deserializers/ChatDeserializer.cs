@@ -11,13 +11,13 @@ namespace TelechatSharp.Core.Deserializers
                 throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
             }
 
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException($"{filePath} does not exist.");
+            }
+
             try
             {
-                if (!File.Exists(filePath))
-                {
-                    throw new FileNotFoundException($"{filePath} does not exist.");
-                }
-
                 string fileContent = File.ReadAllText(filePath);
 
                 return JsonSerializer.Deserialize<Chat>(fileContent, options) ?? throw new InvalidOperationException("JSON deserialization returned null.");
@@ -25,10 +25,6 @@ namespace TelechatSharp.Core.Deserializers
             catch (JsonException jsonException)
             {
                 throw new InvalidOperationException("JSON deserialization failed.", jsonException);
-            }
-            catch (Exception exception)
-            {
-                throw new InvalidOperationException("Error reading file.", exception);
             }
         }
 
