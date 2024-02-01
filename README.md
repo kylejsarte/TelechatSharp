@@ -9,7 +9,7 @@ TelechatSharp handles the deserialization of JSON exported from Telegram Desktop
 TelechatSharp is [available on NuGet](https://www.nuget.org/packages/TelechatSharp).
 
 ```cmd
-dotnet add package TelechatSharp --version 2.0.*
+dotnet add package TelechatSharp
 ```
 
 ## Accessing Your Data  
