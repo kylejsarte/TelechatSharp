@@ -27,17 +27,29 @@ namespace TelechatSharp.Core.Models
             set => _actorId = value;
         }
 
-        [JsonPropertyName("dateunixtime")]
-        public string DateUnixTime { get; set; }
-
         [JsonPropertyName("date")]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
+
+        [JsonPropertyName("dateunixtime")]
+        public string? DateUnixTime { get; set; }
+
+        [JsonPropertyName("duration")]
+        public int? Duration { get; set; }
 
         [JsonPropertyName("duration_seconds")]
         public int? DurationSeconds { get; set; }
 
+        [JsonPropertyName("edited")]
+        public DateTime? Edited { get; set; }
+
+        [JsonPropertyName("edited_unixtime")]
+        public string EditedUnixTime { get; set; }
+
         [JsonPropertyName("file")]
         public string? File { get; set; }
+
+        [JsonPropertyName("forwarded_from")]
+        public string? ForwardedFrom { get; set; }
 
         private string? _from = default;
 
@@ -63,6 +75,30 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("id")]
         public long? Id { get; set; }
 
+        [JsonPropertyName("location_information")]
+        public LocationInformation LocationInformation { get; set; }
+
+        [JsonPropertyName("media_type")]
+        public string? MediaType { get; set; }
+
+        [JsonPropertyName("members")]
+        public IEnumerable<string>? Members { get; set; }
+
+        [JsonPropertyName("message_id")]
+        public long? MessageId { get; set; }
+
+        [JsonPropertyName("mime_type")]
+        public string? MimeType { get; set; }
+
+        [JsonPropertyName("photo")]
+        public string? Photo { get; set; }
+
+        [JsonPropertyName("reply_to_message_id")]
+        public long? ReplyToMessageId { get; set; }
+
+        [JsonPropertyName("sticker_emoji")]
+        public string? StickerEmoji { get; set; }
+
         [JsonInclude]
         [JsonPropertyName("text")]
         [JsonConverter(typeof(TextConverter))]
@@ -83,7 +119,6 @@ namespace TelechatSharp.Core.Models
         }
 
         [JsonPropertyName("text_entities")]
-        [JsonConverter(typeof(TextEntityConverter))]
         public IEnumerable<TextEntity>? TextEntities { get; set; }
 
         [JsonPropertyName("thumbnail")]
@@ -95,20 +130,8 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("type")]
         public MessageType? Type { get; set; }
 
-        [JsonPropertyName("sticker_emoji")]
-        public string? StickerEmoji { get; set; }
-
-        [JsonPropertyName("media_type")]
-        public string? MediaType { get; set; }
-
-        [JsonPropertyName("members")]
-        public IEnumerable<string>? Members { get; set; }
-
-        [JsonPropertyName("mime_type")]
-        public string? MimeType { get; set; }
-
-        [JsonPropertyName("photo")]
-        public string? Photo { get; set; }
+        [JsonPropertyName("via_bot")]
+        public string? ViaBot { get; set; }
 
         [JsonPropertyName("width")]
         public int? Width { get; set; }
