@@ -115,6 +115,10 @@ namespace TelechatSharp.Core.Models
                 {
                     _text.FullText = value;
                 }
+                else
+                {
+                    _text = new Text() { FullText = value };
+                }
             }
         }
 

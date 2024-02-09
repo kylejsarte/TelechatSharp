@@ -28,6 +28,16 @@ namespace TelechatSharp.Core
             Messages = chat.Messages;
         }
 
+        public Chat(StreamReader streamReader)
+        {
+            var chat = ChatDeserializer.DeserializeChatFromStream(streamReader);
+
+            Name = chat.Name;
+            Type = chat.Type;
+            Id = chat.Id;
+            Messages = chat.Messages;
+        }
+
         [JsonConstructor]
         private Chat() { }
     }

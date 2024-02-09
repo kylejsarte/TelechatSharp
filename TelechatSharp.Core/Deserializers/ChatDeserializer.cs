@@ -16,21 +16,26 @@ namespace TelechatSharp.Core.Deserializers
                 throw new FileNotFoundException($"{filePath} does not exist.");
             }
 
-            try
-            {
-                string fileContent = File.ReadAllText(filePath);
+            var streamReader = File.OpenText(filePath);
 
-                return JsonSerializer.Deserialize<Chat>(fileContent, options) ?? throw new InvalidOperationException("JSON deserialization returned null.");
-            }
-            catch (JsonException jsonException)
+            return DeserializeChatFromStream(streamReader);
+        }
+
+        internal static Chat DeserializeChatFromStream(StreamReader streamReader)
+        {
+            string fileContent = streamReader.ReadToEnd();
+
+            if (string.IsNullOrEmpty(fileContent))
             {
-                throw new InvalidOperationException("JSON deserialization failed.", jsonException);
+                throw new InvalidOperationException("File content cannot be empty.");
             }
+
+            return JsonSerializer.Deserialize<Chat>(fileContent, options) ?? throw new InvalidOperationException("JSON deserialization returned null.");
         }
 
         private static readonly JsonSerializerOptions options = new JsonSerializerOptions
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
         };
     }
 }

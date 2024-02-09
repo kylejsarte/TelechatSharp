@@ -5,7 +5,7 @@ namespace TelechatSharp.Core.Models
 {
     public class Text
     {
-        public string? FullText { get; set; }
+        public string FullText { get; set; } = string.Empty;
 
         public Text() { }
 
@@ -14,7 +14,7 @@ namespace TelechatSharp.Core.Models
             FullText = GetFullText(token);
         }
 
-        private string? GetFullText(JsonElement token)
+        private string GetFullText(JsonElement token)
         {
             StringBuilder fullText = new StringBuilder();
 
