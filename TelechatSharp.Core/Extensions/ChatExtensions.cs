@@ -4,18 +4,16 @@ namespace TelechatSharp.Core.Extensions
 {
     public static class ChatExtensions
     {
-        public static DateTime? GetDateCreated(this Chat chat)
+        public static DateTime? GetDateCreated(this IChat chat)
         {
             _ = chat ?? throw new ArgumentNullException(nameof(chat));
 
-            // When the exported JSON is a complete group chat history containing the oldest message, 
-            // the "create_group" action will be in the first messages element.
-            var firstMessage = chat.Messages?.FirstOrDefault();
+            var createGroupMessage = chat.Messages?.Where(message => message.Action == "create_group").FirstOrDefault();
 
-            return string.Equals(firstMessage?.Action, "create_group") ? firstMessage?.Date : null;
+            return createGroupMessage?.Date;
         }
 
-        public static IEnumerable<Member> GetMembers(this Chat chat)
+        public static IEnumerable<Member> GetMembers(this IChat chat)
         {
             _ = chat ?? throw new ArgumentNullException(nameof(chat));
 
@@ -34,21 +32,18 @@ namespace TelechatSharp.Core.Extensions
                 .Distinct();
         }
 
-        public static IEnumerable<Member> GetOriginalMembers(this Chat chat)
+        public static IEnumerable<Member> GetOriginalMembers(this IChat chat)
         {
             _ = chat ?? throw new ArgumentNullException(nameof(chat));
 
-            if (chat.Messages is null || !chat.Messages.Any() || chat.Messages.FirstOrDefault()?.Members is null)
-            {
-                return Enumerable.Empty<Member>();
-            }
+            var createGroupMessage = chat.Messages?.Where(message => message.Action == "create_group").FirstOrDefault();
 
-            var originalMembers = chat.Messages.FirstOrDefault()?.Members;
+            var originalMembers = createGroupMessage?.Members;
 
-            return originalMembers.Select(member => new Member
+            return originalMembers?.Select(member => new Member
             {
                 Name = member
-            });
+            }) ?? Enumerable.Empty<Member>();
         }
     }
 }
