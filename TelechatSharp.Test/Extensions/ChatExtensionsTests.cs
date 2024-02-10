@@ -187,7 +187,7 @@ namespace TelechatSharp.Test.Extensions
         }
 
         [Fact]
-        public void GetOriginalMembers_ReturnsMembers_WhenFirstMessageMembersIsEmpty()
+        public void GetOriginalMembers_ReturnsOriginalMembers_WhenFirstMessageMembersIsEmpty()
         {
             var mockChat = new Mock<IChat>();
 
