@@ -3,7 +3,7 @@ using TelechatSharp.Core.Models;
 
 namespace TelechatSharp.Core.Extensions
 {
-    public static class MesssagesExtensions
+    public static class MessagesExtensions
     {
         /// <summary>
         /// Returns a collection of all <see cref="MessageType.Message"/> type messages in the chat.
@@ -101,7 +101,7 @@ namespace TelechatSharp.Core.Extensions
         /// <summary>
         /// Returns a collection of "text" property values for a specific text entity type. For example, get all emails or phone numbers sent in the chat.
         /// </summary>
-        public static IEnumerable<string?> GetAllTextsOfTextEntityType(this IEnumerable<Message> messages, string type)
+        public static IEnumerable<string> GetAllTextsOfTextEntityType(this IEnumerable<Message> messages, string type)
         {
             _ = messages ?? throw new ArgumentNullException(nameof(messages));
             _ = type ?? throw new ArgumentNullException(nameof(type));
@@ -110,7 +110,8 @@ namespace TelechatSharp.Core.Extensions
                 .Where(message => message.TextEntities is not null)
                 .SelectMany(message => message.TextEntities!)
                 .Where(textEntity => string.Equals(textEntity.Type, type))
-                .Select(textEntity => textEntity.Text);
+                .Select(textEntity => textEntity.Text)
+                .Where(text => !string.IsNullOrEmpty(text))!;
         }
 
         /// <summary>
