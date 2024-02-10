@@ -14,7 +14,7 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("actor")]
         public string Actor
         {
-            get => _actor ?? _from;
+            get => string.IsNullOrEmpty(_actor) ? _from : _actor;
             set => _actor = value;
         }
 
@@ -23,7 +23,7 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("actor_id")]
         public string ActorId
         {
-            get => _actorId ?? _fromId;
+            get => string.IsNullOrEmpty(_actorId) ? _fromId : _actorId;
             set => _actorId = value;
         }
 
@@ -56,7 +56,7 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("from")]
         public string From
         {
-            get => _from ?? _actor;
+            get => string.IsNullOrEmpty(_from) ? _actor : _from;
             set => _from = value;
         }
 
@@ -65,7 +65,7 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("from_id")]
         public string FromId
         {
-            get => _fromId ?? _actorId;
+            get => string.IsNullOrEmpty(_fromId) ? _actorId : _fromId;
             set => _fromId = value;
         }
 
