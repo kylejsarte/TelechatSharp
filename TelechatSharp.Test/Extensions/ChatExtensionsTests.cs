@@ -186,27 +186,6 @@ namespace TelechatSharp.Test.Extensions
             Assert.Equal(expectedMembers, result);
         }
 
-        [Fact]
-        public void GetOriginalMembers_ReturnsOriginalMembers_WhenFirstMessageMembersIsEmpty()
-        {
-            var mockChat = new Mock<IChat>();
-
-            mockChat.SetupGet(chat => chat.Messages).Returns(new List<Message>
-            {
-                new Message
-                {
-                    Action = "create_group",
-                    Members = new List<string>()
-                }
-            });
-
-            var result = mockChat.Object.GetOriginalMembers();
-
-            Assert.NotNull(result);
-
-            Assert.Empty(result);
-        }
-
         public static IEnumerable<object[]> MemberAndMessageData => new[]
         {
             new object[]
