@@ -9,21 +9,21 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("action")]
         public string? Action { get; set; }
 
-        private string? _actor = default;
+        private string _actor = string.Empty;
 
         [JsonPropertyName("actor")]
-        public string? Actor
+        public string Actor
         {
-            get => _actor ?? _from ?? null;
+            get => _actor ?? _from;
             set => _actor = value;
         }
 
-        private string? _actorId = default;
+        private string _actorId = string.Empty;
 
         [JsonPropertyName("actor_id")]
-        public string? ActorId
+        public string ActorId
         {
-            get => _actorId ?? _fromId ?? null;
+            get => _actorId ?? _fromId;
             set => _actorId = value;
         }
 
@@ -51,21 +51,21 @@ namespace TelechatSharp.Core.Models
         [JsonPropertyName("forwarded_from")]
         public string? ForwardedFrom { get; set; }
 
-        private string? _from = default;
+        private string _from = string.Empty;
 
         [JsonPropertyName("from")]
-        public string? From
+        public string From
         {
-            get => _from ?? _actor ?? null;
+            get => _from ?? _actor;
             set => _from = value;
         }
 
-        private string? _fromId = default;
+        private string _fromId = string.Empty;
 
         [JsonPropertyName("from_id")]
-        public string? FromId
+        public string FromId
         {
-            get => _fromId ?? _actorId ?? null;
+            get => _fromId ?? _actorId;
             set => _fromId = value;
         }
 
