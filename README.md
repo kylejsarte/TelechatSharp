@@ -1,10 +1,10 @@
 # TelechatSharp
 
 ![NuGet Version](https://img.shields.io/nuget/v/TelechatSharp?style=flat-square)
-![Static Badge](https://img.shields.io/badge/downloads-518-red?style=flat-square) <? Manually updated as shields.io sometimes fails to fetch ?>
+![Static Badge](https://img.shields.io/badge/downloads-617-red?style=flat-square) <? Manually updated as shields.io sometimes fails to fetch ?>
 ![GitHub License](https://img.shields.io/github/license/kylejsarte/TelechatSharp?style=flat-square)
 
-TelechatSharp handles the deserialization of JSON exported from Telegram Desktop into C# objects, making it easy to work with your chat data in .NET applications through custom classes, properties, and extension methods. 
+TelechatSharp handles the deserialization of JSON exported from Telegram Desktop into C# objects, making it easy to work with your chat data in .NET applications through custom classes, properties, and extension methods.
 
 TelechatSharp is [available on NuGet](https://www.nuget.org/packages/TelechatSharp).
 
@@ -19,18 +19,18 @@ Construct a new `Chat` object using the file path to your JSON:
 Chat chat = new Chat("telegram.json");
 ```
 
-Easily extract data from your chat history:
+Easily extract meaningful data from your chat history:
 
 ```csharp
-var messages = chat.Messages;
+IEnumerable<Message> messages = chat.Messages;
 
-var messagesFromKyle = messages.FromMember("Kyle Sarte");
+IEnumerable<Message> messagesFromKyle = messages.FromMember("Kyle Sarte");
 
-var messagesContainingLol = messages.ContainingText("lol");
+IEnumerable<Message> messagesContainingLol = messages.ContainingText("lol");
 
-var emailsSentInChat = messages.GetAllTextsOfTextEntityType("email");
+IEnumerable<string> allEmailsSentInChat = messages.GetAllTextsOfTextEntityType("email");
 
-var phoneNumbersSentInChat = messages.GetAllTextOfTextEntityType("phone");
+IEnumerable<string> allPhoneNumbersSentInChat = messages.GetAllTextsOfTextEntityType("phone");
 ```
 
 ## Advanced Use Cases
@@ -44,8 +44,8 @@ using Microsoft.Data.Analysis;
 Chat chat = new Chat("telegram.json");
 
 // From TelechatSharp.Core, get chat member names and their messages.
-var from = chat.Messages.Select(m => m.From);
-var text = chat.Messages.Select(m => m.Text);
+IEnumerable<string> from = chat.Messages.Select(m => m.From);
+IEnumerable<string> text = chat.Messages.Select(m => m.Text);
 
 // From Microsoft.Data.Analysis, create a new DataFrame using data from TelechatSharp.
 DataFrameColumn[] columns = {
@@ -62,6 +62,14 @@ Code produces a DataFrame similar to the following:
 |--------|--------------------------------|
 | Céline | You are gonna miss that plane. |
 | Jesse  | I know.                        |
+
+## Alternative Construction
+
+A `Chat` object can also be instantiated using a `StreamReader`:
+
+```csharp
+public Chat(StreamReader streamReader)
+```
 
 ## Further Reading
 - **[Chat.cs](#chatcs)**
