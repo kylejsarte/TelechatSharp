@@ -5,6 +5,7 @@
 ![GitHub License](https://img.shields.io/github/license/kylejsarte/TelechatSharp?style=flat-square)
 
 TelechatSharp handles the deserialization of JSON exported from Telegram Desktop, making it easy to work with your chat data in .NET applications. Useful for text extraction and data analysis.
+
 TelechatSharp is [available on NuGet](https://www.nuget.org/packages/TelechatSharp).
 
 ```cmd
